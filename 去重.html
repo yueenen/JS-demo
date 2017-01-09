@@ -1,0 +1,27 @@
+<!--Created by yueenen on 17/1/9 11:14.-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> 你不会的原因是想的太多，写得太少。</title>
+    <script>
+        var array = [12, "12", 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, "7"];
+        for (var i = 0; i < array.length - 1; i++) {
+            for (var j = i + 1; j < array.length; j++) {
+                if (array[i] === array[j]) {
+                    array.splice(j, 1);
+                    j--;
+                }
+            }
+        }
+        console.log(array);
+        /**
+         * length = 9; 实际只会比较 8 轮; var i = 0;
+         * 第 1(i=0) 轮比较: [12,"12"],[12,4],[12,6],[12,89],[12,2]... 比较了 8() 次;
+         * 第 2(i=1) 轮比较: ["12",4],["12",6],["12",89]... 比较了 7 次;
+         */
+    </script>
+</head>
+<body>
+</body>
+</html>
