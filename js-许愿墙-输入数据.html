@@ -13,6 +13,7 @@
             text-align: center;
             background-color: #c30230;
         }
+
         #content {
             margin: 0 auto;
             width: 960px;
@@ -38,6 +39,7 @@
             text-align: left;
             cursor: move;
         }
+
         #content .tip1 .tip_c {
             background: url(images/tip1_c.gif) repeat-y;
         }
@@ -64,18 +66,21 @@
             height: 53px;
             padding-top: 20px;
         }
+
         #content .close, #content .close2 {
             float: left;
             font-size: 12px;
             cursor: pointer;
             color: #000000;
         }
+
         .clr {
             clear: both;
             overflow: auto;
             display: block;
             height: 0px;
         }
+
         #content .icon {
             float: left;
             width: 35px;
@@ -83,6 +88,7 @@
             height: 35px;
             text-align: center;
         }
+
         #content .name {
             float: right;
             padding-right: 15px;
@@ -91,6 +97,7 @@
             line-height: 35px;
             color: #C0F;
         }
+
         #content .num {
             float: left;
             padding-left: 7px;
@@ -99,69 +106,62 @@
     </style>
 </head>
 <body>
-    <div id="content" >
-
-    </div>
-    <script src="js-照片墙.js"></script>
+    <div id="content"></div>
     <script>
-
-        var messages = [
-            {"id":1,"name":"mahu","content":"今天你拿苹果支付了么","time":"2016-02-17 00:00:00"},
-            {"id":2,"name":"haha","content":"今天天气不错，风和日丽的","time":"2016-02-18 12:40:00"},
-            {"id":3,"name":"jjjj","content":"常要说的事儿是乐生于苦","time":"2016-03-18 12:40:00"},
-            {"id":4,"name":"9.8的妹纸","content":"把朋友家厕所拉堵了 不敢出去 掏了半小时了都","time":"2016-03-18 12:40:00"},
-            {"id":5,"name":"雷锋ii.","content":"元宵节快乐","time":"2016-02-22 12:40:00"},
-            {"id":6,"name":"哎呦哥哥.","content":"据说今晚央视的元宵晚会导演和春晚导演是同一个人，真是躲得过初一，躲不过十五。","time":"2016-02-22 01:30:00"},
-            {"id":7,"name":"没猴哥，不春晚","content":"班主任:“小明，你都十二岁了，还是三年级，不觉得羞愧吗”？。小明:“一点也不觉得，老师你都四十多岁了，不也是年年在三年级混日子吗？羞愧的应该是你”。老师:……","time":"2016-02-22 01:30:00"},
-            {"id":8,"name":"哎呦杰杰.","content":"真搞不懂你们地球人，月亮有什么好看的，全是坑，还是对面那哥们好看，","time":"2016-02-22 01:30:00"},
-            {"id":9,"name":"哎呦哎呦","content":"今天哪里的烟花最好看！！？答：朋友圈。。。","time":"2016-02-22 02:30:00"}
-        ];
-
-
+        function getTime() {
+            var d = new Date();
+            var year = d.getFullYear();
+            var month = (d.getMonth() + 1) < 10 ? "0" + (d.getMonth() + 1) : (d.getMonth() + 1);
+            var date = d.getDate() < 10 ? "0" + d.getDate() : d.getDate();
+            var hours = d.getHours();
+            var minutes = d.getMinutes();
+            var seconds = d.getSeconds();
+            var arrDate = [year, month, date];
+            var arrTime = [hours, minutes, seconds];
+            return arrDate.join("-") + " " + arrTime.join(":");
+        }
+        var messages = [];
+        function msg() {
+            var tip = {content: prompt("请输入您的愿望"), name: prompt("请输入您的名字")};
+            return messages.push(tip);
+        }
+        msg();
+        while (confirm("您需要继续添加愿望吗?")) {
+            msg();
+        }
         // 2.根据 获得的数组(根据数组里面数组项，动态的生成祝愿纸条)
-        for(var i=0;i<messages.length;i++){
+        for (var i = 0; i < messages.length; i++) {
             var tipDiv = document.createElement("div");
-            tipDiv.className = "tip1";//让生成的div拥有一个tip1的类样式，因为上面已经设置好了，具有绝对定位
-            $$("content").appendChild(tipDiv);//将生成的Div追加到content盒子中
+            tipDiv.className = "tip1";
+            document.getElementById("content").appendChild(tipDiv);
 
             var str = '<div class="tip_h" title="双击关闭纸条">' +
-                    '<div class="num">第[49568]条 2016-02-17 22:51:52</div>' +
+                    '<div class="num">第'+ (i+1) +'条 ' + getTime() + '</div>' +
                     '<div class="close" title="关闭纸条">×</div>' +
                     '<div class="clr"></div>' +
                     '</div>' +
-                    '<div class="tip_c">希望马上能怀个健康的猴宝宝 祈祷祈祷</div>' +
+                    '<div class="tip_c">' + messages[i].content + '</div>' +
                     '<div class="tip_f">' +
                     '<div class="icon">' +
                     '<img src="images/bpic_1.gif" alt="" title="">' +
                     '</div>' +
-                    '<div class="name">成真的人</div>' +
+                    '<div class="name">' + messages[i].name + '</div>' +
                     '<div class="clr"></div>' +
-                    '</div>' ;
+                    '</div>';
             tipDiv.innerHTML = str;  // 将字符串赋值，相当于生成在tipDiv之下
 
             // 3. 随机的生成位置
-            var x = parseInt(Math.random()*600+400); // 400-1000
-            var  y = parseInt(Math.random()*500);// 0--500
-            tipDiv.style.left = x+'px';
+            var x = parseInt(Math.random() * 600 + 400); // 400-1000
+            var y = parseInt(Math.random() * 500);// 0--500
+            tipDiv.style.left = x + 'px';
             tipDiv.style.top = y + 'px';
-        }
 
-        //  <div class="tip1" id="cc">
-        //        <div class="tip_h" title="双击关闭纸条">
-        //          <div class="num">第[49568]条 2016-02-17 22:51:52</div>
-        //          <div class="close" title="关闭纸条">×</div>
-        //          <div class="clr"></div>
-        //        </div>
-        //        <div class="tip_c">希望马上能怀个健康的猴宝宝 祈祷祈祷</div>
-        //        <div class="tip_f">
-        //             <div class="icon">
-        //               <img src="images/bpic_1.gif" alt="" title="">
-        //             </div>
-        //             <div class="name">成真的人</div>
-        //             <div class="clr"></div>
-        //        </div>
-        // </div>
-        //
+            // 删除按钮
+            var btn = document.getElementsByClassName("tip_h")[i];
+            btn.onclick = function () {
+                document.getElementById("content").removeChild(this.parentNode);
+            }
+        }
     </script>
 </body>
 </html>
