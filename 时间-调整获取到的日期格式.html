@@ -1,0 +1,33 @@
+<!--Created by yueenen on 17/1/9 20:41.-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> 你不会的原因是想的太多，写得太少。</title>
+    <script>
+        //        var d = new Date();
+        //        //document.write(d);
+        //        var year = d.getFullYear();
+        //        var month = (d.getMonth() + 1) < 10 ? "0" + (d.getMonth() + 1) : (d.getMonth() + 1); //月份+1使用
+        //        var date = d.getDate() < 10 ? "0" + d.getDate() : d.getDate(); // var weekDay = d.getDay(); 做对比使用
+        //        var arr = [year, month, date];
+        //        document.write(arr.join(" - "));
+
+        function getTime() {
+            var d = new Date();
+            var year = d.getFullYear();
+            var month = (d.getMonth() + 1) < 10 ? "0" + (d.getMonth() + 1) : (d.getMonth() + 1);
+            var date = d.getDate() < 10 ? "0" + d.getDate() : d.getDate();
+            var hours = d.getHours();
+            var minutes = d.getMinutes();
+            var seconds = d.getSeconds();
+            var arrDate = [year, month, date];
+            var arrTime = [hours, minutes, seconds];
+            return arrDate.join("-") + " " + arrTime.join(":");
+        }
+        getTime();
+    </script>
+</head>
+<body>
+</body>
+</html>
